@@ -1,0 +1,45 @@
+<div class="screen-side">
+  <div class="picker-label">اختر تلميذًا لترى ملفه :</div>
+  <div class="picker">
+    @for (s of students; track s.name; let i = $index) {
+      <button type="button" class="side-item pick" [class.active]="i === selected()" (click)="selected.set(i)">{{ s.name }}</button>
+    }
+  </div>
+</div>
+
+<div class="screen-main">
+  <h4>بعد كل تقييم: ملف لكل تلميذ، من غير كتابة</h4>
+  <div class="sub">
+    أدخل نتائج التقييم مرة واحدة، ودفتري يبني ملف كل تلميذ: مستوى التحكّم في كل كفاءة، نقاط القوة والصعوبات،
+    وملاحظة جاهزة تعدّلها كما تريد.
+  </div>
+
+  <ol class="steps inline">
+    <li>أدخل نتائج التقييم حسب الكفاءات</li>
+    <li>يتولّد ملف كل تلميذ تلقائيًا</li>
+    <li>عدّل الملاحظة وصدّر الملف</li>
+  </ol>
+
+  <div class="file-top">
+    <div>
+      <h3>{{ current().name }}</h3>
+      <div class="sub flush">السنة الثالثة أساسي : قسم أ : التقييم الأول</div>
+    </div>
+    <span class="chip-out">جاهز للتصدير</span>
+  </div>
+
+  @for (r of rows(); track r.label) {
+    <div class="comp">
+      <div class="comp-row">
+        <span>{{ r.label }}</span>
+        <em [class]="'txt-' + r.mastery.level">{{ r.mastery.label }} : {{ r.score }}٪</em>
+      </div>
+      <div class="track" role="progressbar" [attr.aria-label]="r.label" aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="r.score">
+        <div class="fill" [class]="'lv-' + r.mastery.level" [style.width.%]="r.score"></div>
+      </div>
+    </div>
+  }
+
+  <div class="note-label">ملاحظة المعلّم <small>قابلة للتعديل، جرّب الكتابة فيها</small></div>
+  <dft-rich-editor [html]="note()" [minHeight]="96" label="ملاحظة المعلّم" />
+</div>

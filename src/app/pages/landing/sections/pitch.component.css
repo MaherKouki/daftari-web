@@ -1,0 +1,17 @@
+.pitch { background: var(--paper-2); }
+.pitch-card {
+  background: var(--card); border: 2px solid var(--border); border-radius: 32px 32px 32px 8px;
+  padding: 44px; max-width: 760px; margin: 0 auto; box-shadow: 0 10px 0 var(--shadow);
+}
+blockquote { margin: 0; font-size: 19px; color: var(--ink); }
+.pitch-sign { margin-top: 22px; display: flex; align-items: center; gap: 12px; }
+.avatar {
+  width: 42px; height: 42px; border-radius: 50%; background: var(--grape); color: #fff;
+  display: flex; align-items: center; justify-content: center; font-family: 'Lalezar', sans-serif;
+}
+.pitch-sign strong { display: block; font-weight: 700; }
+.pitch-sign small { display: block; font-size: 13px; color: var(--ink-soft); }
+
+@media (max-width: 860px) {
+  .pitch-card { padding: 36px 26px; }
+}

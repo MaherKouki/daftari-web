@@ -1,0 +1,56 @@
+<dft-auth-layout [heading]="heading()" [subtitle]="subtitle()">
+  @switch (status()) {
+    @case ('loading') {
+      <p class="hint" role="status">لحظة من فضلك…</p>
+    }
+
+    @case ('email-verified') {
+      <a class="btn btn-primary btn-block" [routerLink]="isLoggedIn() ? '/app' : '/login'">
+        {{ isLoggedIn() ? 'المتابعة إلى فضائي' : 'تسجيل الدخول' }}
+      </a>
+    }
+
+    @case ('reset-form') {
+      @if (error()) {
+        <div class="alert alert-error" role="alert">{{ error() }}</div>
+      }
+      <p class="hint" dir="ltr" style="text-align: right; margin: 0 0 16px">{{ resetEmail() }}</p>
+      <form [formGroup]="form" (ngSubmit)="submitReset()" novalidate>
+        <div class="field">
+          <label class="label" for="password">كلمة السر الجديدة</label>
+          <div class="input-wrap">
+            <input id="password" class="input ltr" [type]="showPassword() ? 'text' : 'password'" autocomplete="new-password" maxlength="128"
+                   formControlName="password" [class.invalid]="form.controls.password.touched && form.controls.password.invalid" />
+            <button type="button" class="toggle-pass" (click)="showPassword.set(!showPassword())"
+                    [attr.aria-pressed]="showPassword()">{{ showPassword() ? 'إخفاء' : 'إظهار' }}</button>
+          </div>
+          <dft-password-checklist [password]="form.controls.password.value" />
+        </div>
+        <div class="field">
+          <label class="label" for="confirm">تأكيد كلمة السر</label>
+          <input id="confirm" class="input ltr" [type]="showPassword() ? 'text' : 'password'" autocomplete="new-password"
+                 formControlName="confirm" [class.invalid]="form.controls.confirm.touched && form.hasError('mismatch')" />
+          @if (form.controls.confirm.touched && form.hasError('mismatch')) {
+            <div class="field-error">كلمتا السر غير متطابقتين.</div>
+          }
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="busy()">
+          {{ busy() ? 'جارٍ الحفظ…' : 'حفظ كلمة السر' }}
+        </button>
+      </form>
+    }
+
+    @case ('reset-done') {
+      <a class="btn btn-primary btn-block" routerLink="/login">تسجيل الدخول</a>
+    }
+
+    @case ('invalid') {
+      <div class="alert alert-error" role="alert">{{ error() || 'الرابط غير صالح أو انتهت صلاحيته. اطلب رابطًا جديدًا.' }}</div>
+      <div class="auth-links">
+        <a routerLink="/login">تسجيل الدخول</a>
+        <br />
+        <a routerLink="/forgot-password">نسيت كلمة السر؟</a>
+      </div>
+    }
+  }
+</dft-auth-layout>

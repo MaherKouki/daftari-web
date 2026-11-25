@@ -1,0 +1,22 @@
+<dft-auth-layout heading="أكّد بريدك الإلكتروني" subtitle="خطوة أخيرة قبل أن تدخل إلى فضائك.">
+  <p>
+    أرسلنا رابط التأكيد إلى
+    <strong dir="ltr">{{ email() }}</strong>.
+    افتح الرسالة واضغط على الرابط، ثم عُد إلى هنا.
+  </p>
+
+  @if (message()) {
+    <div class="alert" [class.alert-ok]="kind() === 'ok'" [class.alert-error]="kind() === 'error'"
+         [class.alert-info]="kind() === 'info'" role="status">{{ message() }}</div>
+  }
+
+  <button type="button" class="btn btn-primary btn-block" (click)="check()" [disabled]="busy()">لقد أكّدت بريدي</button>
+  <div style="height: 12px"></div>
+  <button type="button" class="btn btn-google" (click)="resend()" [disabled]="busy() || cooldown() > 0">
+    {{ cooldown() > 0 ? 'إعادة الإرسال بعد ' + cooldown() + ' ثانية' : 'إعادة إرسال الرابط' }}
+  </button>
+
+  <div class="auth-links">
+    ليس بريدك؟ <button type="button" class="toggle-pass" style="position: static; transform: none" (click)="logout()">تسجيل الخروج</button>
+  </div>
+</dft-auth-layout>

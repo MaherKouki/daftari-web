@@ -1,0 +1,60 @@
+<div class="head">
+  <div>
+    <h1>أقسامي</h1>
+    <p class="lead">
+      @if (max() !== null) {
+        <span class="counter">{{ count() }} / {{ max() }}</span> أقسام في النسخة المجانية
+      } @else {
+        <span class="counter">{{ count() }}</span> أقسام (بلا حدّ)
+      }
+    </p>
+  </div>
+  @if (atLimit()) {
+    <button type="button" class="btn btn-primary" disabled>إضافة قسم</button>
+  } @else {
+    <a class="btn btn-primary" routerLink="/app/classes/new">إضافة قسم</a>
+  }
+</div>
+
+@if (atLimit()) {
+  <div class="alert alert-info" role="status">
+    وصلت إلى حدّ النسخة المجانية. لفتح عدد غير محدود من الأقسام ستتمكّن قريبًا من طلب التفعيل من هنا.
+  </div>
+}
+
+@switch (classesService.state()) {
+  @case ('error') {
+    <div class="alert alert-error" role="alert">
+      تعذّر تحميل أقسامك.
+      <button type="button" class="btn btn-ghost small" (click)="reload()">إعادة المحاولة</button>
+    </div>
+  }
+  @case ('ready') {
+    @if (count() === 0) {
+      <div class="empty">
+        <p>لا توجد أقسام بعد. أنشئ قسمك الأول وحدّد المواد التي تدرّسها فيه.</p>
+        <a class="btn btn-primary" routerLink="/app/classes/new">إضافة قسمي الأول</a>
+      </div>
+    } @else {
+      <div class="grid">
+        @for (c of classesService.classes(); track c.id) {
+          <article class="card">
+            <div class="top">
+              <h2>{{ label(c.level) }} : {{ c.name }}</h2>
+              <span class="year">{{ c.schoolYear }}</span>
+            </div>
+            <ul class="subjects" aria-label="المواد">
+              @for (s of c.subjects; track s) {
+                <li>{{ s }}</li>
+              }
+            </ul>
+            <button type="button" class="link-danger" (click)="archive(c)">أرشفة</button>
+          </article>
+        }
+      </div>
+    }
+  }
+  @default {
+    <p class="lead" role="status">جارٍ تحميل أقسامك…</p>
+  }
+}

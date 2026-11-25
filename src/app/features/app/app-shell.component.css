@@ -1,0 +1,24 @@
+header { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+.bar { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; padding-bottom: 14px; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand-mark {
+  width: 38px; height: 38px; border-radius: 12px 12px 12px 4px; background: var(--coral);
+  display: flex; align-items: center; justify-content: center; color: #fff;
+  font-family: 'Lalezar', sans-serif; font-size: 20px; box-shadow: 2px 3px 0 var(--coral-deep);
+}
+.brand-name { font-family: 'Lalezar', sans-serif; font-size: 22px; }
+.links { display: flex; gap: 22px; font-weight: 700; font-size: 15px; }
+.links a { text-decoration: none; opacity: 0.75; padding: 4px 0; border-bottom: 2px solid transparent; }
+.links a:hover { opacity: 1; }
+.links a.active { opacity: 1; border-bottom-color: var(--coral); }
+.who { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.name { font-weight: 700; font-size: 14.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px; }
+.small { padding: 8px 16px; font-size: 14px; }
+.content { padding-top: 40px; padding-bottom: 60px; }
+
+@media (max-width: 760px) {
+  .name { display: none; }
+}
+@media (max-width: 520px) {
+  .links { gap: 14px; font-size: 14px; }
+}

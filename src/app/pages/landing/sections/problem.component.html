@@ -1,0 +1,29 @@
+<section class="section" id="problem">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>تنظيم قسم ابتدائي يستهلك وقتًا لا يُرى في الجدول</h2>
+      <p>بعد كل تقييم ينتظر المعلّمَ ملفٌ لكل تلميذ يُكتب بخط اليد، ثم الجذاذات، وسجل الغيابات، وملف المتفقد الذي يُطلب في آخر لحظة.</p>
+    </div>
+
+    <div class="compare">
+      <div class="compare-card">
+        <h3>قبل : ساعات من الكتابة</h3>
+        <div class="messy" aria-hidden="true">
+          <div class="note n1"><b>ملفات تقييمية</b>26 ملفًا تُكتب يدويًا</div>
+          <div class="note n2"><b>جذاذة</b>تُعاد كتابتها كل أسبوع</div>
+          <div class="note n3"><b>غيابات</b>أين ورقة الأسبوع الماضي؟</div>
+          <div class="note n4"><b>ملف المتفقد</b>وثائق مبعثرة</div>
+        </div>
+      </div>
+
+      <div class="compare-card">
+        <h3>بعد : كل شيء في دفتري</h3>
+        <div class="folders-tidy">
+          @for (row of after; track row.text) {
+            <div class="tidy-row"><span class="dot" [style.background]="row.color"></span> {{ row.text }}</div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

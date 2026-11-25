@@ -1,0 +1,11 @@
+<div class="screen-side">
+  @for (s of subjects; track s; let first = $first) {
+    <div class="side-item" [class.active]="first">{{ s }}</div>
+  }
+</div>
+
+<div class="screen-main">
+  <h4>الجذاذات</h4>
+  <div class="sub">نماذج جاهزة حسب المادة والمستوى، تعدّلها في المحرّر</div>
+  <dft-rich-editor [html]="samplePlan" [minHeight]="190" label="محرّر الجذاذة" />
+</div>

@@ -1,0 +1,31 @@
+<div class="screen-side">
+  <div class="side-item active">سجل الحضور اليومي</div>
+  <div class="side-item">الفروض والتصحيحات</div>
+</div>
+
+<div class="screen-main">
+  <h4>سجل الحضور اليومي</h4>
+  <div class="sub">السنة الثالثة أساسي : قسم أ : انقر على الحالة لتغييرها</div>
+
+  <div class="stat-row">
+    <div class="stat"><b>{{ presentCount() }} / {{ pupils().length }}</b><span>الحاضرون في هذه المعاينة</span></div>
+    <div class="stat"><b>4</b><span>فروض قيد التصحيح</span></div>
+  </div>
+
+  @for (p of pupils(); track p.name; let i = $index) {
+    <div class="list-row">
+      <span>{{ p.name }}</span>
+      <button
+        type="button"
+        class="att"
+        [class.present]="p.present"
+        [class.absent]="!p.present"
+        [attr.aria-pressed]="p.present"
+        [attr.aria-label]="'تغيير حالة ' + p.name"
+        (click)="toggle(i)"
+      >{{ p.present ? 'حاضر' : 'غائب' }}</button>
+    </div>
+  }
+
+  <div class="list-row spaced">فرض الإملاء : 18 ورقة من 26 مصحّحة <span class="badge badge-wait">قيد التصحيح</span></div>
+</div>

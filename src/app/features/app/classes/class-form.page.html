@@ -1,0 +1,52 @@
+<a class="back" routerLink="/app/classes">العودة إلى أقسامي</a>
+<h1>قسم جديد</h1>
+<p class="lead">حدّد المستوى واسم المجموعة، ثم اختر المواد التي تدرّسها في هذا القسم. لن نطلب منك عدد التلاميذ الآن : ستُدخل أسماءهم في سجل الحضور.</p>
+
+@if (error()) {
+  <div class="alert alert-error" role="alert">{{ error() }}</div>
+}
+
+<form class="panel" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <div class="row2">
+    <div class="field">
+      <label class="label" for="level">المستوى</label>
+      <select id="level" class="input" formControlName="level" [class.invalid]="form.controls.level.touched && form.controls.level.invalid">
+        <option [ngValue]="0" disabled>اختر المستوى</option>
+        @for (l of levels; track l.value) {
+          <option [ngValue]="l.value">{{ l.label }}</option>
+        }
+      </select>
+      @if (form.controls.level.touched && form.controls.level.invalid) {
+        <div class="field-error">اختر مستوى القسم.</div>
+      }
+    </div>
+
+    <div class="field">
+      <label class="label" for="name">اسم المجموعة</label>
+      <input id="name" class="input" type="text" maxlength="20" placeholder="مثال : أ" formControlName="name"
+             [class.invalid]="form.controls.name.touched && form.controls.name.invalid" />
+      @if (form.controls.name.touched && form.controls.name.invalid) {
+        <div class="field-error">أدخل اسم المجموعة (20 حرفًا كحدّ أقصى).</div>
+      }
+    </div>
+  </div>
+
+  <fieldset class="subjects">
+    <legend class="label">المواد التي تدرّسها في هذا القسم</legend>
+    <div class="chips">
+      @for (s of choices(); track s) {
+        <button type="button" class="chip" [class.on]="isSelected(s)" [attr.aria-pressed]="isSelected(s)" (click)="toggle(s)">{{ s }}</button>
+      }
+    </div>
+    <div class="custom">
+      <input class="input" type="text" maxlength="100" placeholder="مادة أخرى…" [formControl]="custom"
+             (keydown.enter)="$event.preventDefault(); addCustom()" aria-label="إضافة مادة" />
+      <button type="button" class="btn btn-ghost small" (click)="addCustom()">إضافة</button>
+    </div>
+    @if (form.touched && selected().length === 0) {
+      <div class="field-error">اختر مادة واحدة على الأقل.</div>
+    }
+  </fieldset>
+
+  <button type="submit" class="btn btn-primary" [disabled]="busy()">{{ busy() ? 'جارٍ الحفظ…' : 'إنشاء القسم' }}</button>
+</form>

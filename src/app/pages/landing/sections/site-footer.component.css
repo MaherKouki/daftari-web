@@ -1,0 +1,4 @@
+footer {
+  padding: 36px 28px 50px; color: var(--ink-soft); font-size: 14px;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; border-top: 1px solid var(--border);
+}

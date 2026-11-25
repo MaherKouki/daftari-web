@@ -1,0 +1,38 @@
+/* Design tokens : couleurs du thème « دفتري » (clair + sombre) */
+:root {
+  --paper: #FFF8EC;
+  --paper-2: #FFEFD9;
+  --ink: #2A2140;
+  --ink-soft: #5B5270;
+  --card: #FFFFFF;
+  --border: #EDE1CC;
+  --coral: #FF6F59;
+  --coral-deep: #D9503F;
+  --sun: #FFC145;
+  --sun-deep: #C99327;
+  --mint: #33B389;
+  --grape: #6C5CE7;
+  --sky: #2E9BD6;
+  --on-sun: #3a2c0d;
+  --shadow: rgba(42, 33, 64, 0.16);
+  --chalk-line: rgba(255, 255, 255, 0.16);
+  --accent-text: #6C5CE7;
+  --sky-text: #1B79AB;
+  --coral-text: #D9503F;
+  --sun-text: #8a6420;
+  --mint-text: #237058;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #211A33; --paper-2: #2A2140; --ink: #F7F1E3; --ink-soft: #C7BEDD;
+    --card: #2F2748; --border: #42385E; --shadow: rgba(0, 0, 0, 0.4);
+    --accent-text: #A99DFF; --sky-text: #6CC3F0; --coral-text: #FF8F7D; --sun-text: #FFC145; --mint-text: #5FD3AA;
+  }
+}
+
+:root[data-theme='dark'] {
+  --paper: #211A33; --paper-2: #2A2140; --ink: #F7F1E3; --ink-soft: #C7BEDD;
+  --card: #2F2748; --border: #42385E; --shadow: rgba(0, 0, 0, 0.4);
+  --accent-text: #A99DFF; --sky-text: #6CC3F0; --coral-text: #FF8F7D; --sun-text: #FFC145; --mint-text: #5FD3AA;
+}

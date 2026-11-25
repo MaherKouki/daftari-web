@@ -1,0 +1,141 @@
+<section class="section" id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>أدوات أخرى تكمّل ملف التلميذ</h2>
+      <p>نموذج تفاعلي : انقر على أي عنصر لتصفّح الواجهة. وكل الوثائق تُكتب وتُعدَّل في محرّر نصوص واحد.</p>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="أدوات دفتري">
+      @for (t of tabs; track t.id; let i = $index) {
+        <button
+          type="button"
+          role="tab"
+          class="tab-btn"
+          [id]="'tab-' + t.id"
+          [class.active]="active() === t.id"
+          [attr.aria-selected]="active() === t.id"
+          [attr.tabindex]="active() === t.id ? 0 : -1"
+          (click)="select(t.id)"
+          (keydown)="onTabKeydown($event, i)"
+        >{{ t.label }}</button>
+      }
+    </div>
+
+    <dft-eval-file-screen [class.active]="active() === 'eval'" aria-labelledby="tab-eval" />
+    <dft-attendance-screen [class.active]="active() === 'attendance'" aria-labelledby="tab-attendance" />
+    <dft-lesson-plan-screen [class.active]="active() === 'plans'" aria-labelledby="tab-plans" />
+
+    <!-- ملف التلميذ -->
+    <div class="screen" role="tabpanel" aria-labelledby="tab-student" [class.active]="active() === 'student'">
+      <div class="screen-side">
+        @for (s of students; track s; let first = $first) {
+          <div class="side-item" [class.active]="first">{{ s }}</div>
+        }
+      </div>
+      <div class="screen-main">
+        <h4>مريم بن سالم</h4>
+        <div class="sub">السنة الثالثة أساسي : قسم أ</div>
+        <div class="stat-row">
+          <div class="stat"><b>17</b><span>غياب مسجّل هذه السنة</span></div>
+          <div class="stat"><b>15/20</b><span>معدّل الفرض الأخير</span></div>
+        </div>
+        <div class="list-row">الصعوبات : الإنتاج الكتابي <span class="badge badge-low">تحتاج دعمًا</span></div>
+        <div class="list-row">ملاحظة المعلّمة : أكتوبر <span class="badge badge-ok">مكتملة</span></div>
+        <div class="list-row">شهادة طبية : نوفمبر <span class="badge badge-ok">مؤرشفة</span></div>
+      </div>
+    </div>
+
+    <!-- تحليل النتائج -->
+    <div class="screen" role="tabpanel" aria-labelledby="tab-analysis" [class.active]="active() === 'analysis'">
+      <div class="screen-side">
+        <div class="side-item active">التقييم الأول</div>
+        <div class="side-item">التقييم الثاني</div>
+        <div class="side-item">مقارنة الثلاثيات</div>
+      </div>
+      <div class="screen-main">
+        <h4>تحليل نتائج القسم</h4>
+        <div class="sub">الكفاءات الأضعف تظهر تلقائيًا</div>
+        @for (a of analysis; track a.label) {
+          <div class="comp">
+            <div class="comp-row"><span>{{ a.label }}</span><em [class]="a.text">{{ a.value }}٪</em></div>
+            <div class="track"><div class="fill" [class]="'lv-' + a.level" [style.width.%]="a.value"></div></div>
+          </div>
+        }
+        <div class="group-box"><b>مجموعة دعم مقترحة : الإنتاج الكتابي</b>آية الجبالي، أحمد الطرابلسي، مريم بن سالم، وخمسة تلاميذ آخرين.</div>
+        <div class="group-box"><b>تمارين علاجية مقترحة</b>ترتيب جمل لتكوين فقرة، ثم كتابة فقرة قصيرة من ثلاث جمل.</div>
+      </div>
+    </div>
+
+    <!-- ملف المتفقد -->
+    <div class="screen" role="tabpanel" aria-labelledby="tab-inspector" [class.active]="active() === 'inspector'">
+      <div class="screen-side">
+        <div class="side-item active">ملف الزيارة</div>
+        <div class="side-item">الوثائق المرفقة</div>
+      </div>
+      <div class="screen-main">
+        <h4>ملف المتفقد</h4>
+        <div class="sub">الوثائق تُجمَّع من دفتري، وتعدّل القائمة حسب ما يُطلب منك</div>
+        <div class="progress"><i></i></div>
+        @for (item of inspectorItems; track item) {
+          <div class="check-row"><span class="tick" aria-hidden="true">✓</span> {{ item }}</div>
+        }
+        <div class="group-box"><b>6 من 6 وثائق جاهزة</b>تصدير الملف كاملًا بنقرة واحدة.</div>
+      </div>
+    </div>
+
+    <!-- التخطيط -->
+    <div class="screen" role="tabpanel" aria-labelledby="tab-planning" [class.active]="active() === 'planning'">
+      <div class="screen-side">
+        <div class="side-item active">جدول الحصص</div>
+        <div class="side-item">التوزيع السنوي</div>
+        <div class="side-item">الروزنامة والعطل</div>
+      </div>
+      <div class="screen-main">
+        <h4>جدول الحصص الأسبوعي</h4>
+        <div class="sub">السنة الدراسية 2026 / 2027</div>
+        <div class="scroll-x">
+          <table class="tt">
+            <tr>
+              <th></th>
+              @for (d of weekdays; track d) { <th>{{ d }}</th> }
+            </tr>
+            @for (row of timetable; track row.time) {
+              <tr>
+                <th>{{ row.time }}</th>
+                @for (cell of row.cells; track $index) {
+                  <td [class]="'c-' + cell.tone">{{ cell.subject }}</td>
+                }
+              </tr>
+            }
+          </table>
+        </div>
+        <div class="terms">
+          @for (t of terms; track $index) {
+            <span [class.brk]="t === 'عطلة'">{{ t }}</span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- مكتبة الوثائق -->
+    <div class="screen" role="tabpanel" aria-labelledby="tab-library" [class.active]="active() === 'library'">
+      <div class="screen-side">
+        <div class="side-item active">كل الوثائق</div>
+        <div class="side-item">هذا الأسبوع</div>
+        <div class="side-item">مؤرشفة</div>
+      </div>
+      <div class="screen-main">
+        <h4>مكتبة الوثائق</h4>
+        <div class="sub">مصنّفة تلقائيًا حسب النوع</div>
+        <div class="folder-grid">
+          @for (f of folders; track $index) {
+            <div class="folder">
+              <svg width="34" height="28" viewBox="0 0 34 28" aria-hidden="true"><path d="M2 4h11l3 4h16v18H2z" [attr.fill]="f.color" /></svg>
+              <span>{{ f.label }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

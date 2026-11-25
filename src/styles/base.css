@@ -1,0 +1,37 @@
+/* Base : reset léger, typographie, conteneur */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* letter-spacing reste à 0 : l'espacement des lettres casse la liaison des lettres arabes */
+h1, h2, h3, .display {
+  font-family: 'Lalezar', 'Arial Black', sans-serif;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+a { color: inherit; }
+img, svg { max-width: 100%; display: block; }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+
+:focus-visible { outline: 3px solid var(--grape); outline-offset: 3px; }
+
+/* Les ancres ne doivent pas passer sous l'en-tête collant */
+[id] { scroll-margin-top: 84px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

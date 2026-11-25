@@ -1,0 +1,14 @@
+<div class="toolbar" role="toolbar" aria-label="أدوات التنسيق">
+  <button type="button" class="tb-btn" title="غليظ" aria-label="غليظ" (mousedown)="$event.preventDefault()" (click)="exec('bold')">B</button>
+  <button type="button" class="tb-btn italic" title="مائل" aria-label="مائل" (mousedown)="$event.preventDefault()" (click)="exec('italic')">I</button>
+  <button type="button" class="tb-btn" title="قائمة" aria-label="قائمة" (mousedown)="$event.preventDefault()" (click)="exec('insertUnorderedList')">•</button>
+</div>
+<div
+  #area
+  class="editor"
+  contenteditable="true"
+  role="textbox"
+  aria-multiline="true"
+  [attr.aria-label]="label()"
+  [style.min-height.px]="minHeight()"
+></div>

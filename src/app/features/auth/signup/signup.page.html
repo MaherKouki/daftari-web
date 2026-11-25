@@ -1,0 +1,60 @@
+<dft-auth-layout heading="إنشاء حساب" subtitle="ابدأ مجانًا : قسمان كحدّ أقصى في النسخة المجانية.">
+  @if (error()) {
+    <div class="alert alert-error" role="alert">{{ error() }}</div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="field">
+      <label class="label" for="name">الاسم واللقب</label>
+      <input id="name" class="input" type="text" autocomplete="name" formControlName="name"
+             [class.invalid]="form.controls.name.touched && form.controls.name.invalid" />
+      @if (form.controls.name.touched && form.controls.name.invalid) {
+        <div class="field-error">أدخل اسمك (حرفان على الأقل).</div>
+      }
+    </div>
+
+    <div class="field">
+      <label class="label" for="email">البريد الإلكتروني</label>
+      <input id="email" class="input ltr" type="email" inputmode="email" autocomplete="email" formControlName="email"
+             [class.invalid]="form.controls.email.touched && form.controls.email.invalid" />
+      @if (form.controls.email.touched && form.controls.email.invalid) {
+        <div class="field-error">أدخل بريدًا إلكترونيًا صحيحًا.</div>
+      }
+    </div>
+
+    <div class="field">
+      <label class="label" for="password">كلمة السر</label>
+      <div class="input-wrap">
+        <input id="password" class="input ltr" [type]="showPassword() ? 'text' : 'password'" autocomplete="new-password" maxlength="128"
+               formControlName="password" [class.invalid]="form.controls.password.touched && form.controls.password.invalid" />
+        <button type="button" class="toggle-pass" (click)="showPassword.set(!showPassword())"
+                [attr.aria-pressed]="showPassword()">{{ showPassword() ? 'إخفاء' : 'إظهار' }}</button>
+      </div>
+      <dft-password-checklist [password]="form.controls.password.value" />
+    </div>
+
+    <div class="field">
+      <label class="label" for="confirm">تأكيد كلمة السر</label>
+      <input id="confirm" class="input ltr" [type]="showPassword() ? 'text' : 'password'" autocomplete="new-password"
+             formControlName="confirm" [class.invalid]="form.controls.confirm.touched && form.hasError('mismatch')" />
+      @if (form.controls.confirm.touched && form.hasError('mismatch')) {
+        <div class="field-error">كلمتا السر غير متطابقتين.</div>
+      }
+    </div>
+
+    <!-- TODO avant diffusion publique : remplacer par le texte légal de confidentialité validé. -->
+    <p class="privacy-note">
+      بياناتك وبيانات تلاميذك خاصة بك ولا يطّلع عليها غيرك. لا نجمع من بيانات التلاميذ إلا الاسم واللقب والمستوى.
+      سنرسل إليك رابطًا لتأكيد بريدك الإلكتروني.
+    </p>
+
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="busy()">
+      {{ busy() ? 'جارٍ المعالجة…' : 'إنشاء الحساب' }}
+    </button>
+  </form>
+
+  <div class="divider">أو</div>
+  <button type="button" class="btn btn-google" (click)="google()" [disabled]="busy()">المتابعة بحساب Google</button>
+
+  <div class="auth-links">لديك حساب؟ <a routerLink="/login">سجّل الدخول</a></div>
+</dft-auth-layout>

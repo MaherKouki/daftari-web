@@ -1,0 +1,42 @@
+<dft-auth-layout heading="تسجيل الدخول" subtitle="مرحبًا بعودتك إلى دفتري.">
+  @if (error()) {
+    <div class="alert alert-error" role="alert">{{ error() }}</div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="field">
+      <label class="label" for="email">البريد الإلكتروني</label>
+      <input id="email" class="input ltr" type="email" inputmode="email" autocomplete="email" formControlName="email"
+             [class.invalid]="form.controls.email.touched && form.controls.email.invalid" />
+      @if (form.controls.email.touched && form.controls.email.invalid) {
+        <div class="field-error">أدخل بريدًا إلكترونيًا صحيحًا.</div>
+      }
+    </div>
+
+    <div class="field">
+      <label class="label" for="password">كلمة السر</label>
+      <div class="input-wrap">
+        <input id="password" class="input ltr" [type]="showPassword() ? 'text' : 'password'" autocomplete="current-password"
+               formControlName="password" [class.invalid]="form.controls.password.touched && form.controls.password.invalid" />
+        <button type="button" class="toggle-pass" (click)="showPassword.set(!showPassword())"
+                [attr.aria-pressed]="showPassword()">{{ showPassword() ? 'إخفاء' : 'إظهار' }}</button>
+      </div>
+      @if (form.controls.password.touched && form.controls.password.invalid) {
+        <div class="field-error">أدخل كلمة السر.</div>
+      }
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="busy()">
+      {{ busy() ? 'جارٍ المعالجة…' : 'دخول' }}
+    </button>
+  </form>
+
+  <div class="divider">أو</div>
+  <button type="button" class="btn btn-google" (click)="google()" [disabled]="busy()">المتابعة بحساب Google</button>
+
+  <div class="auth-links">
+    <a routerLink="/forgot-password">نسيت كلمة السر؟</a>
+    <br />
+    ليس لديك حساب؟ <a routerLink="/signup">أنشئ حسابًا مجانيًا</a>
+  </div>
+</dft-auth-layout>

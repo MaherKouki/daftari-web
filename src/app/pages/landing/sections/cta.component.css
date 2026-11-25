@@ -1,0 +1,15 @@
+.cta {
+  background: var(--grape); color: #fff; border-radius: 32px; padding: 56px 40px; text-align: center;
+  margin: 64px 0; position: relative; overflow: hidden;
+}
+.cta::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(var(--chalk-line) 1.5px, transparent 1.5px);
+  background-size: 16px 16px; opacity: 0.7;
+}
+.cta > * { position: relative; z-index: 1; }
+.cta h2 { font-size: clamp(26px, 3.6vw, 36px); }
+.cta p { margin: 12px auto 0; opacity: 0.92; max-width: 480px; }
+.cta .btn-primary { background: var(--sun); color: var(--on-sun); box-shadow: 0 5px 0 var(--sun-deep); margin-top: 26px; }
+.cta .btn-primary:hover { box-shadow: 0 3px 0 var(--sun-deep); }
+.cta .note { font-size: 14.5px; opacity: 0.85; margin-top: 8px; }

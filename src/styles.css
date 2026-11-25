@@ -1,0 +1,5 @@
+/* Point d'entrée des styles globaux. Les polices sont chargées via angular.json (@fontsource). */
+@import './styles/tokens.css';
+@import './styles/base.css';
+@import './styles/ui.css';
+@import './styles/forms.css';

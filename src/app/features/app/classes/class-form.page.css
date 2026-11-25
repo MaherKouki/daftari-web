@@ -1,0 +1,14 @@
+h1 { font-size: clamp(28px, 3.6vw, 38px); }
+.lead { color: var(--ink-soft); margin: 8px 0 22px; max-width: 640px; }
+.back { display: inline-block; margin-bottom: 10px; color: var(--ink-soft); font-size: 14px; }
+.panel { background: var(--card); border: 2px solid var(--border); border-radius: 28px 28px 28px 8px; padding: 26px; box-shadow: 0 10px 0 var(--shadow); max-width: 720px; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.subjects { border: 0; padding: 0; margin: 4px 0 22px; }
+.subjects legend { padding: 0; margin-bottom: 8px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.chip { border: 2px solid var(--border); background: var(--paper-2); color: var(--ink); border-radius: 100px; padding: 6px 16px; font-family: inherit; font-weight: 700; font-size: 14px; cursor: pointer; }
+.chip:hover { border-color: var(--grape); }
+.chip.on { background: var(--grape); border-color: var(--grape); color: #fff; }
+.custom { display: flex; gap: 10px; align-items: center; max-width: 420px; }
+.small { padding: 8px 16px; font-size: 14px; white-space: nowrap; }
+@media (max-width: 600px) { .row2 { grid-template-columns: 1fr; } }

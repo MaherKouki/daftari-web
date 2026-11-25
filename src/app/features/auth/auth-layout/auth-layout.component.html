@@ -1,0 +1,16 @@
+<main class="auth">
+  <a class="brand" routerLink="/" aria-label="دفتري : الصفحة الرئيسية">
+    <span class="brand-mark" aria-hidden="true">د</span>
+    <span class="brand-name">دفتري</span>
+  </a>
+
+  <section class="card" aria-labelledby="auth-title">
+    <h1 id="auth-title">{{ heading() }}</h1>
+    @if (subtitle()) {
+      <p class="subtitle">{{ subtitle() }}</p>
+    }
+    <ng-content />
+  </section>
+
+  <p class="back"><a routerLink="/">العودة إلى الصفحة الرئيسية</a></p>
+</main>

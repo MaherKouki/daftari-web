@@ -1,0 +1,19 @@
+<header>
+  <div class="bar wrap">
+    <a class="brand" routerLink="/app" aria-label="دفتري : فضائي">
+      <span class="brand-mark" aria-hidden="true">د</span>
+      <span class="brand-name">دفتري</span>
+    </a>
+    <nav class="links" aria-label="فضائي">
+      <a routerLink="/app" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">الرئيسية</a>
+      <a routerLink="/app/classes" routerLinkActive="active">أقسامي</a>
+    </nav>
+    <div class="who">
+      <span class="name">{{ user()?.displayName || user()?.email }}</span>
+      <button type="button" class="btn btn-ghost small" (click)="logout()">تسجيل الخروج</button>
+    </div>
+  </div>
+</header>
+<main class="wrap content">
+  <router-outlet />
+</main>

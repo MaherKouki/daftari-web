@@ -1,0 +1,51 @@
+.hero { padding: 76px 0 60px; position: relative; }
+.hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
+.eyebrow-note {
+  display: inline-block; font-family: 'Lalezar', sans-serif; font-size: 15px;
+  color: var(--coral-text); margin-bottom: 14px; border-bottom: 2px dashed var(--coral); padding-bottom: 2px;
+}
+h1 { font-size: clamp(34px, 4.4vw, 52px); color: var(--ink); }
+h1 span { color: var(--coral-text); }
+.lead { margin: 20px 0 0; font-size: 18px; color: var(--ink-soft); max-width: 520px; }
+.hero-ctas { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
+.hero-meta { margin-top: 26px; font-size: 14px; color: var(--ink-soft); }
+
+/* Entrée en douceur, jouée une seule fois au chargement */
+.reveal { opacity: 0; transform: translateY(14px); animation: rise 0.8s ease forwards; }
+.d1 { animation-delay: 0.05s; } .d2 { animation-delay: 0.18s; } .d3 { animation-delay: 0.32s; } .d4 { animation-delay: 0.46s; }
+@keyframes rise { to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { animation: none; opacity: 1; transform: none; }
+}
+
+/* Classeur de feuilles empilées */
+.binder { position: relative; height: 480px; }
+.sheet {
+  position: absolute; width: 260px; background: var(--card);
+  border: 2px solid var(--border); border-radius: 20px 20px 20px 6px;
+  box-shadow: 0 9px 0 var(--shadow); padding: 16px 18px;
+}
+.sheet .tab {
+  position: absolute; top: -15px; right: 20px; background: var(--sun); color: var(--on-sun);
+  font-size: 13px; font-weight: 700; padding: 4px 14px; border-radius: 100px;
+}
+.sheet h4 { font-size: 16px; margin: 6px 0 10px; font-family: 'Tajawal', sans-serif; font-weight: 800; }
+.sheet .line { height: 9px; background: var(--border); border-radius: 100px; margin: 8px 0; }
+.sheet .line.w60 { width: 60%; } .sheet .line.w80 { width: 80%; } .sheet .line.w40 { width: 40%; }
+.sheet .chip { display: inline-block; font-size: 12px; font-weight: 700; padding: 3px 11px; border-radius: 100px; margin-top: 8px; }
+.sheet-1 { top: 14px; right: 0; transform: rotate(-2deg); z-index: 3; }
+.sheet-1 .tab { background: var(--sky); color: #fff; }
+.sheet-1 .chip { background: rgba(46, 155, 214, 0.16); color: var(--sky-text); }
+.sheet-2 { top: 168px; left: 0; transform: rotate(2deg); z-index: 2; border-radius: 20px 20px 6px 20px; }
+.sheet-2 .chip { background: rgba(255, 193, 69, 0.25); color: var(--sun-text); }
+.sheet-3 { top: 322px; right: 16px; transform: rotate(-1.5deg); z-index: 1; }
+.sheet-3 .tab { background: var(--coral); color: #fff; }
+.sheet-3 .chip { background: rgba(255, 111, 89, 0.16); color: var(--coral-text); }
+
+@media (max-width: 860px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .binder { height: 520px; margin-top: 20px; }
+  .sheet { width: 230px; }
+  .sheet-2 { top: 178px; }
+  .sheet-3 { top: 340px; }
+}
